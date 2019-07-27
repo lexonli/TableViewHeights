@@ -1,0 +1,7 @@
+version: "Apple Swift version 5.0.1 (swiftlang-1001.0.82.4 clang-1001.0.46.5)"
+options: "c7a55472f461bfc7a79773bfc30182b2"
+build_time: [1564209710, 814341000]
+inputs:
+  "/Users/waynebuchner/Documents/CoromaConsulting/Repositories/TableViewHeights/TableViewHeights/tableCell.swift": [1564208675, 77572203]
+  "/Users/waynebuchner/Documents/CoromaConsulting/Repositories/TableViewHeights/TableViewHeights/ViewController.swift": [1564209709, 896196889]
+  "/Users/waynebuchner/Documents/CoromaConsulting/Repositories/TableViewHeights/TableViewHeights/AppDelegate.swift": [1564206944, 513627455]
