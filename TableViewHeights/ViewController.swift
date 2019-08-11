@@ -13,6 +13,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     /// You can use this simple to toggle between selected or unselected
     var selectedIndex: Int?
     
+    let cellHeight: CGFloat = 80
+    let expandedCellHeight: CGFloat = 140
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -22,29 +25,23 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        return selectedIndex == indexPath.row ? 200 : 50
+        return selectedIndex == indexPath.row ? expandedCellHeight : cellHeight
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         selectedIndex = selectedIndex == indexPath.row ? nil : indexPath.row
+
+        UIView.transition(with: tableView,
+                          duration: 0.35,
+                          options: .transitionCrossDissolve,
+                          animations: { self.tableView.reloadData() })
         
-        tableView.beginUpdates()
-        if let cell = tableView.cellForRow(at: indexPath) as? CustomCell {
-            UIView.animate(withDuration: 0.15) {
-                //hide the button if the cell is not selected
-                cell.cellButton.isHidden = self.selectedIndex == indexPath.row ? false : true
-                cell.cellLabel.text = self.selectedIndex == indexPath.row ? "OMG Im so big, tap me again!" : "Row: \(indexPath.row) touch me to expand"
-                
-            }
-        }
-        tableView.endUpdates()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = CustomCell(title: "Row: \(indexPath.row) touch me to expand")
-        //        let cell = UITableViewCell.init(style: .default, reuseIdentifier: "cell")
-//        cell.textLabel?.text = "Row: \(indexPath.row) touch me to expand"
+        let cell = CustomCell(withCellheight: cellHeight, withExpandedHeightOfCell: expandedCellHeight)
         cell.selectionStyle = .none
+        cell.bottomStackView.isHidden = self.selectedIndex == indexPath.row ? false : true
         return cell
     }
     
@@ -55,6 +52,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView.init(frame: CGRect.zero)
+        tableView.separatorColor = .white
     }
 
 
